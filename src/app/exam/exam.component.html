@@ -1,0 +1,52 @@
+<div *ngIf="data">
+    <h2>{{ data.name }} <span *ngIf="loading">LOADING...</span>  <a style="float: right;" [routerLink]='["/"]'>HOME</a></h2>
+    <div class="row">
+        <div class="column">
+            <input type="number" id="time" min='0' [(ngModel)]="time" (focusout)="saveTime()"> PHÚT
+            <h4><button color='primary' *ngIf="this.question.answers.length > 0" (click)="saveQuestion()" mat-raised-button>THÊM</button><button (click)="clearQuestion()" mat-raised-button color='warn'>HỦY</button></h4>
+            <mat-form-field class="example-full-width">
+                <mat-label>CÂU HỎI</mat-label>
+                <textarea #questionView autofocus matInput [(ngModel)]="question.question"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Link ảnh (nếu có)</mat-label>
+                <input matInput [(ngModel)]="question.img" />
+            </mat-form-field>
+            <img *ngIf="question.img && question.img !== ''" width="400px" src="{{ question.img }}" alt="" />
+            <mat-form-field class="answ">
+                <mat-label>CÂU TRẢ LỜI (tích vào ô cuối nếu đây là câu trả lời đúng)</mat-label>
+                <textarea #answView matInput rows="1" [(ngModel)]="answer"></textarea>
+            </mat-form-field>
+            <mat-checkbox [(ngModel)]="correct" style="margin-right: 10px;"></mat-checkbox>
+            <button mat-mini-fab color="primary" (click)="addAnsw()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <ng-container *ngIf="question.answers.length > 0">
+                <ng-container *ngFor="let item of question.answers; let i = index">
+                    <mat-form-field class="answ">
+                        <mat-label>ĐÁP ÁN {{ i + 1 }}</mat-label>
+                        <textarea autofocus matInput rows="1" [(ngModel)]="question.answers[i].answer"></textarea>
+                    </mat-form-field>
+                    <mat-checkbox [(ngModel)]="question.answers[i].correct" style="margin-right: 10px;"></mat-checkbox>
+                    <!-- <button mat-mini-fab > -->
+                    <mat-icon style="cursor: pointer;" (click)="removeAnsw(i)" color="warn">cancel</mat-icon>
+                    <!-- </button> -->
+                </ng-container>
+            </ng-container>
+        </div>
+        <div class="column">
+            <h4>DANH SÁCH CÂU HỎI</h4>
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let q of this.data.questions; let ind = index">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title> {{ q.question }} </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-icon class="saveQues">add</mat-icon>
+                  <mat-list *ngFor="let item of q.answers; let i = index">
+                    <mat-list-item> {{item.answer}} </mat-list-item>
+                  </mat-list>
+                </mat-expansion-panel>
+              </mat-accordion>
+        </div>
+    </div>
+</div>

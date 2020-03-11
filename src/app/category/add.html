@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Thêm Loại Đề</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>TÊN LOẠI ĐỀ (A1, A2, B,...)</mat-label>
+    <input autofocus matInput [(ngModel)]="data.name" />
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>LOẠI PHƯƠNG TIỆN</mat-label>
+    <mat-select [(ngModel)]="data.refer">
+      <mat-option value="0">
+        XE GẮN MÁY
+      </mat-option>
+      <mat-option value="1">
+        Ô TÔ
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color='primary' [mat-dialog-close]="data.animal" cdkFocusInitial>
+      Ok
+    </button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

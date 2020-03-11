@@ -1,0 +1,13 @@
+<h2>CÁC LOẠI ĐỀ</h2>
+<br />
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let cate of data; let ind = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ cate.name }} &nbsp; <span *ngIf="cate.loading">LOADING...</span> </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-icon (click)="addExam(ind)" class="addCate">add</mat-icon>
+    <mat-list *ngFor="let item of cate.exams; let i = index">
+      <mat-list-item> <a [routerLink]='["/exam/"+item]' >ĐỀ SỐ {{ i + 1 }}</a></mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
